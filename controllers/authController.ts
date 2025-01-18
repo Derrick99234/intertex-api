@@ -1,11 +1,19 @@
 import { Request, Response } from "express";
 import User from "../models/auth.model";
+import * as bcryptjs from "bcryptjs";
 
 export const createUser = async (request: Request, response: Response) => {
-  const { username, password } = request.body;
+  const { username, password, email, firstName, lastName } = request.body;
 
   try {
-    const user = new User({ username, password });
+    const hashPassword = bcryptjs.hashSync(password, 10);
+    const user = new User({
+      username,
+      password: hashPassword,
+      email,
+      firstName,
+      lastName,
+    });
     await user.save();
     response.status(201).json({ message: "User created successfully", user });
   } catch (error) {

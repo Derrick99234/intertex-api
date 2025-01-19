@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export interface IUser {
   email: string;
   password: string;
@@ -6,4 +8,13 @@ export interface IUser {
   username: string;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface Payload {
+  id: string;
+  email: string;
+}
+
+export interface UserRequest extends Request {
+  user: string;
 }

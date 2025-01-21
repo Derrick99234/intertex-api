@@ -49,7 +49,7 @@ exports.createUser = createUser;
 exports.login = login;
 const auth_model_1 = __importDefault(require("../models/auth.model"));
 const bcryptjs = __importStar(require("bcryptjs"));
-const jwt_process_helper_1 = require("../../utils/helper/jwt-process.helper");
+const jwt_process_helper_1 = require("../utils/helper/jwt-process.helper");
 function createUser(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         const { username, password, email, firstName, lastName } = request.body;

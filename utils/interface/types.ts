@@ -10,6 +10,17 @@ export interface IUser {
   updatedAt?: Date;
 }
 
+export interface IProduct {
+  productName: string;
+  salesPrice: number;
+  price: string;
+  inStock: number;
+  ratings: number;
+  numberOfReviews: number;
+  image: string;
+  otherImages: string[];
+}
+
 export interface Payload {
   id: string;
   email: string;

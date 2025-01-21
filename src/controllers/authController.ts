@@ -21,6 +21,7 @@ export async function createUser(
       firstName,
       lastName,
     });
+    await user.save();
     const payload = {
       id: String(user._id),
       email,
@@ -70,11 +71,6 @@ export async function login(
       message: "Login successful",
       user,
       token,
-    });
-
-    response.status(200).json({
-      username,
-      password,
     });
   } catch (error) {
     console.error(error);

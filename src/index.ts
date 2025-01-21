@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import authRoute from "./routes/authRoute";
 import productRoute from "./routes/productRoute";
+import categoryRoute from "./routes/categoryRoute";
 import connectDB from "./db";
 import dotenv from "dotenv";
 
@@ -21,6 +22,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 
 app.use("/auth/api", authRoute);
 app.use("/api/products", productRoute);
+app.use("/api/category", categoryRoute);
 
 // Start the server
 app.listen(PORT, () => {

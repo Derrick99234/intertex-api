@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { verifyToken } from "../utils/helper/jwt-process.helper";
-import { UserRequest } from "../utils/interface/types";
+import { verifyToken } from "../../utils/helper/jwt-process.helper";
+import { UserRequest } from "../../utils/interface/types";
 
 export const authenticate = (
   req: UserRequest,

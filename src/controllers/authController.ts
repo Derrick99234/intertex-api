@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/auth.model";
 import * as bcryptjs from "bcryptjs";
-import { generateToken } from "../utils/helper/jwt-process.helper";
+import { generateToken } from "../../utils/helper/jwt-process.helper";
 
 export async function createUser(
   request: Request,

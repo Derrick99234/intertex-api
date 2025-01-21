@@ -20,6 +20,13 @@ export interface IProduct {
   image: string;
   otherImages: string[];
 }
+export interface ICategory {
+  name: string;
+  description: string;
+  imageUrl: string;
+  categorySlug: string;
+  status: boolean;
+}
 
 export interface Payload {
   id: string;

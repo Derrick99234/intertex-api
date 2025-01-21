@@ -13,6 +13,7 @@ export async function createProducts(
     salesPrice,
     inStock,
     ratings,
+    productName,
     numberOfReviews,
   } = request.body;
 
@@ -20,6 +21,7 @@ export async function createProducts(
     if (
       !description ||
       !price ||
+      !productName ||
       !inStock ||
       !imageUrl ||
       !otherImages ||
@@ -40,6 +42,7 @@ export async function createProducts(
       salesPrice,
       inStock,
       ratings,
+      productName,
       numberOfReviews,
     };
 

@@ -71,27 +71,12 @@ const updateSubCategory = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-// Get all subCategories with pagination
 const getAllSubCategory = async (req: Request, res: Response): Promise<any> => {
   try {
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 10;
-
-    const skip = (page - 1) * limit;
-    const totalSubCategories = await SubCategory.countDocuments();
-
-    // Get paginated subcategories
-    const subCategories = await SubCategory.find()
-      .skip(skip)
-      .limit(limit)
-      .lean();
-
+    const subCategories = await SubCategory.find();
     res.status(200).json({
       error: false,
       subCategories,
-      totalPages: Math.ceil(totalSubCategories / limit),
-      currentPage: page,
-      totalSubCategories,
       message: "All subcategories fetched successfully",
     });
   } catch (err) {

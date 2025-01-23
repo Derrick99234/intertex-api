@@ -27,6 +27,13 @@ export interface ICategory {
   categorySlug: string;
   status: boolean;
 }
+export interface IMainCategory {
+  name: string;
+  description: string;
+  imageUrl: string;
+  categorySlug: string;
+  status: boolean;
+}
 
 export interface Payload {
   id: string;

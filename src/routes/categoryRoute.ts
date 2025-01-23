@@ -10,10 +10,10 @@ import { authenticateToken } from "../middlewares/verifyJWT";
 
 const router = Router();
 
-router.post("/create-products", authenticateToken, createCategory);
-router.get("/get-product/:id", getCategory);
-router.get("/get-all-products", getAllCategories);
-router.put("/update-product/:id", updateCategory);
-router.delete("/delete-product/:id", deleteCategory);
+router.post("/create-category", authenticateToken, createCategory);
+router.get("/get-category/:id", getCategory);
+router.get("/get-all-categories", getAllCategories);
+router.put("/update-category/:id", updateCategory);
+router.delete("/delete-category/:id", deleteCategory);
 
 export default router;

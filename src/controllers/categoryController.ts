@@ -5,7 +5,8 @@ export async function createCategory(
   request: Request,
   response: Response
 ): Promise<any> {
-  const { name, description, imageUrl, categorySlug, status } = request.body;
+  const { name, description, imageUrl, categorySlug, status, mainCategoryId } =
+    request.body;
 
   if (!name)
     return response.status(200).json({
@@ -25,6 +26,12 @@ export async function createCategory(
       message: "Please provide category images",
     });
 
+  if (!mainCategoryId)
+    return response.status(200).json({
+      error: true,
+      message: "Please provide main category id",
+    });
+
   try {
     const category = await Category.create({
       name,
@@ -32,6 +39,7 @@ export async function createCategory(
       imageUrl,
       categorySlug,
       status,
+      mainCategoryId,
     });
 
     response.status(200).json({
@@ -102,12 +110,13 @@ export async function updateCategory(
   response: Response
 ): Promise<any> {
   const { id } = request.params;
-  const { name, description, imageUrl, categorySlug, status } = request.body;
+  const { name, description, imageUrl, categorySlug, status, mainCategoryId } =
+    request.body;
 
   try {
     const category = await Category.findByIdAndUpdate(
       id,
-      { name, description, imageUrl, categorySlug, status },
+      { name, description, imageUrl, categorySlug, status, mainCategoryId },
       { new: true }
     );
 

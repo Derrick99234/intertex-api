@@ -13,6 +13,13 @@ const ProductSchema: Schema = new Schema(
     numberOfReviews: { type: Number, required: true },
     imageUrl: { type: String, required: true },
     otherImages: { type: Array },
+    subcategoryIds: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "SubCategory",
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,

@@ -4,7 +4,8 @@ import Category from "../models/category.model";
 
 // Create SubCategories
 const createSubCategory = async (req: Request, res: Response): Promise<any> => {
-  const { name, description, image, status, categoryId } = req.body;
+  const { name, description, imageUrl, status, categoryId, categorySlug } =
+    req.body;
 
   try {
     const category = await Category.findOne({ _id: categoryId });
@@ -18,8 +19,9 @@ const createSubCategory = async (req: Request, res: Response): Promise<any> => {
     const subCategory = await SubCategory.create({
       name,
       description,
-      image,
+      imageUrl,
       status,
+      categorySlug,
       categoryId,
     });
     res.status(200).json({
@@ -39,7 +41,7 @@ const createSubCategory = async (req: Request, res: Response): Promise<any> => {
 // Update subCategory
 const updateSubCategory = async (req: Request, res: Response): Promise<any> => {
   const { subCategoryId } = req.params;
-  const { name, description, image, status } = req.body;
+  const { name, description, imageUrl, status } = req.body;
   try {
     const subCategory = await SubCategory.findOne({ _id: subCategoryId });
 
@@ -52,7 +54,7 @@ const updateSubCategory = async (req: Request, res: Response): Promise<any> => {
 
     if (name) subCategory.name = name;
     if (description) subCategory.description = description;
-    if (image) subCategory.image = image;
+    if (imageUrl) subCategory.imageUrl = imageUrl;
     subCategory.status = status;
 
     await subCategory.save();

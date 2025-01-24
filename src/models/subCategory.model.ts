@@ -3,7 +3,8 @@ import { model, Document, Schema } from "mongoose";
 export interface subCategorySchemaI extends Document {
   name: string;
   description: string;
-  image: string;
+  imageUrl: string;
+  categorySlug: string;
   status: Boolean;
   categoryId: Schema.Types.ObjectId;
 }
@@ -12,19 +13,23 @@ const subCategorySchema = new Schema<subCategorySchemaI>(
   {
     name: {
       type: String,
-      require: [true, "Please provide a sub category name"],
+      require: true,
     },
     description: {
       type: String,
-      require: [true, "Please provide subCategory description"],
+      require: true,
     },
-    image: {
+    imageUrl: {
       type: String,
-      require: [true, "Please provide sub category images"],
+      require: true,
     },
     status: {
       type: Boolean,
-      require: [true, "SubCategory status is not provided"],
+      require: true,
+    },
+    categorySlug: {
+      type: String,
+      require: true,
     },
     categoryId: {
       type: Schema.Types.ObjectId,

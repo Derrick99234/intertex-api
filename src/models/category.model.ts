@@ -6,9 +6,14 @@ export interface ICategoryModel extends ICategory, Document {}
 const CategorySchema: Schema = new Schema(
   {
     name: { type: String, required: true },
-    description: { type: Number, required: true },
+    description: { type: String, required: true },
     categorySlug: { type: String, required: true },
     status: { type: Number, required: true },
+    mainCategoryId: {
+      type: mongoose.Types.ObjectId,
+      ref: "MainCategory",
+      required: true,
+    },
     imageUrl: { type: String, required: true },
   },
   {

@@ -23,7 +23,7 @@ const authenticateToken = (
 
   jwt.verify(
     token,
-    process.env.ACCESS_SECRET_TOKEN as string,
+    process.env.JWT_SECRET as string,
     (err: any, decoded: any) => {
       if (err) {
         console.error("Token verification error:", err);

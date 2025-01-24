@@ -6,9 +6,9 @@ export interface IMainCategoryModel extends IMainCategory, Document {}
 const MainCategorySchema: Schema = new Schema(
   {
     name: { type: String, required: true },
-    description: { type: Number, required: true },
+    description: { type: String, required: true },
     mainCategorySlug: { type: String, required: true },
-    status: { type: Number, required: true },
+    status: { type: Boolean, required: true },
     imageUrl: { type: String, required: true },
   },
   {
@@ -17,7 +17,7 @@ const MainCategorySchema: Schema = new Schema(
 );
 
 const MainCategory = mongoose.model<IMainCategoryModel>(
-  "Categories",
+  "MainCategory",
   MainCategorySchema
 );
 export default MainCategory;

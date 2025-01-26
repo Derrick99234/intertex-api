@@ -105,6 +105,34 @@ export async function getCategory(
   }
 }
 
+export async function fetchCategoryByMainCategoryId(
+  request: Request,
+  response: Response
+): Promise<any> {
+  const { mainCategoryId } = request.params;
+  try {
+    const category = await Category.find({ mainCategoryId });
+
+    if (!category) {
+      return response.status(404).json({
+        error: true,
+        message: "Category not found",
+      });
+    }
+
+    response.status(200).json({
+      error: false,
+      category,
+    });
+  } catch (err) {
+    return response.status(500).json({
+      error: true,
+      err,
+      message: "Internal server error, Please try again",
+    });
+  }
+}
+
 export async function updateCategory(
   request: Request,
   response: Response

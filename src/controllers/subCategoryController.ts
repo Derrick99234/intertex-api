@@ -90,6 +90,27 @@ const getAllSubCategory = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
+const getAllSubCategoryByCategoryId = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const { categoryId } = req.params;
+    const subCategories = await SubCategory.find({ categoryId });
+    res.status(200).json({
+      error: false,
+      subCategories,
+      message: "All subcategories fetched successfully",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      error: true,
+      err,
+      message: "Internal server error, please try again",
+    });
+  }
+};
+
 // Get sub category
 const getSubCategory = async (req: Request, res: Response): Promise<any> => {
   const { subCategoryId } = req.params;
@@ -145,6 +166,7 @@ export {
   createSubCategory,
   updateSubCategory,
   getAllSubCategory,
+  getAllSubCategoryByCategoryId,
   getSubCategory,
   deleteSubCategory,
 };

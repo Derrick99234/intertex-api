@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Product from "../models/products.model";
+import SubCategory from "../models/subCategory.model";
 
 export async function createProducts(
   request: Request,
@@ -13,24 +14,41 @@ export async function createProducts(
     salesPrice,
     inStock,
     ratings,
+    productName,
     numberOfReviews,
+    subcategoryIds,
   } = request.body;
 
   try {
     if (
       !description ||
       !price ||
+      !productName ||
       !inStock ||
       !imageUrl ||
       !otherImages ||
       !salesPrice ||
       !ratings ||
-      !numberOfReviews
+      !numberOfReviews ||
+      !subcategoryIds
     ) {
       return response.status(400).json({
         message: "Missing required fields",
       });
     }
+
+    subcategoryIds.forEach(async (subcategoryId: string) => {
+      const subCategory = await SubCategory.findById(subcategoryId);
+
+      if (!subCategory) {
+        return response.status(404).json({
+          status: false,
+          message: `subCategory with the id of ${subcategoryIds.join(
+            ", "
+          )} is not found`,
+        });
+      }
+    });
 
     const newProduct = {
       description,
@@ -40,7 +58,9 @@ export async function createProducts(
       salesPrice,
       inStock,
       ratings,
+      productName,
       numberOfReviews,
+      subcategoryIds,
     };
 
     const createdProduct = await Product.create(newProduct);
@@ -50,6 +70,7 @@ export async function createProducts(
       product: createdProduct,
     });
   } catch (error) {
+    console.log(error);
     return response.status(500).json({
       message: "Error creating product",
       error,

@@ -11,8 +11,15 @@ const ProductSchema: Schema = new Schema(
     inStock: { type: Number, required: true },
     ratings: { type: Number, required: true },
     numberOfReviews: { type: Number, required: true },
-    image: { type: String, required: true },
-    otherImages: { type: Array, required: true },
+    imageUrl: { type: String, required: true },
+    otherImages: { type: Array },
+    subcategoryIds: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "SubCategory",
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,

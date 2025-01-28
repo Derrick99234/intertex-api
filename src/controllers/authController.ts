@@ -12,12 +12,14 @@ export async function createUser(
     if (!username || !password || !email || !firstName || !lastName) {
       return response.status(400).json({ message: "All fields are required" });
     }
+    const is_super_admin = false;
 
     const hashedPassword = bcryptjs.hashSync(password, 10);
     const user = new User({
       username,
       password: hashedPassword,
       email,
+      is_super_admin,
       firstName,
       lastName,
     });

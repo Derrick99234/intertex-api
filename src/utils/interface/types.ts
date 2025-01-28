@@ -5,6 +5,8 @@ export interface IUser {
   password: string;
   firstName: string;
   lastName: string;
+  is_super_admin: boolean;
+  avatar_urls: string;
   username: string;
   createdAt?: Date;
   updatedAt?: Date;

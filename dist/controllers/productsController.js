@@ -18,22 +18,34 @@ exports.getProductById = getProductById;
 exports.updateProduct = updateProduct;
 exports.deleteProduct = deleteProduct;
 const products_model_1 = __importDefault(require("../models/products.model"));
+const subCategory_model_1 = __importDefault(require("../models/subCategory.model"));
 function createProducts(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { description, imageUrl, otherImages, price, salesPrice, inStock, ratings, numberOfReviews, } = request.body;
+        const { description, imageUrl, otherImages, price, salesPrice, inStock, ratings, productName, numberOfReviews, subcategoryIds, } = request.body;
         try {
             if (!description ||
                 !price ||
+                !productName ||
                 !inStock ||
                 !imageUrl ||
                 !otherImages ||
                 !salesPrice ||
                 !ratings ||
-                !numberOfReviews) {
+                !numberOfReviews ||
+                !subcategoryIds) {
                 return response.status(400).json({
                     message: "Missing required fields",
                 });
             }
+            subcategoryIds.forEach((subcategoryId) => __awaiter(this, void 0, void 0, function* () {
+                const subCategory = yield subCategory_model_1.default.findById(subcategoryId);
+                if (!subCategory) {
+                    return response.status(404).json({
+                        status: false,
+                        message: `subCategory with the id of ${subcategoryIds.join(", ")} is not found`,
+                    });
+                }
+            }));
             const newProduct = {
                 description,
                 imageUrl,
@@ -42,7 +54,9 @@ function createProducts(request, response) {
                 salesPrice,
                 inStock,
                 ratings,
+                productName,
                 numberOfReviews,
+                subcategoryIds,
             };
             const createdProduct = yield products_model_1.default.create(newProduct);
             response.status(201).json({
@@ -51,6 +65,7 @@ function createProducts(request, response) {
             });
         }
         catch (error) {
+            console.log(error);
             return response.status(500).json({
                 message: "Error creating product",
                 error,

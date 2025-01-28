@@ -39,6 +39,8 @@ const UserSchema = new mongoose_1.Schema({
     password: { type: String, required: true },
     email: { type: String, require: true, unique: true },
     firstName: { type: String, require: true },
+    is_super_admin: { type: Boolean, require: true },
+    avatar_urls: { type: String },
     lastName: { type: String, require: true },
 }, {
     timestamps: true,

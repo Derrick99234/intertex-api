@@ -24,6 +24,7 @@ export async function createUser(
       lastName,
     });
     await user.save();
+
     const payload = {
       id: String(user._id),
       email,

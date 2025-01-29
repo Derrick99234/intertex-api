@@ -21,23 +21,30 @@ const products_model_1 = __importDefault(require("../models/products.model"));
 const subCategory_model_1 = __importDefault(require("../models/subCategory.model"));
 function createProducts(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { description, imageUrl, otherImages, price, salesPrice, inStock, ratings, productName, numberOfReviews, subcategoryIds, } = request.body;
+        const { description, price, salesPrice, inStock, ratings, productName, subcategoryIds, } = request.body;
         try {
+            if (!request.files || !("productImage" in request.files)) {
+                return response.status(400).json({
+                    message: "Product image and other images are required",
+                });
+            }
             if (!description ||
                 !price ||
                 !productName ||
                 !inStock ||
-                !imageUrl ||
-                !otherImages ||
                 !salesPrice ||
                 !ratings ||
-                !numberOfReviews ||
                 !subcategoryIds) {
                 return response.status(400).json({
                     message: "Missing required fields",
                 });
             }
-            subcategoryIds.forEach((subcategoryId) => __awaiter(this, void 0, void 0, function* () {
+            const imageUrl = request.files["productImage"][0].location;
+            const otherImages = request.files["otherImages"].map((file) => file.location);
+            const subcategoryId = JSON.parse(subcategoryIds);
+            console.log(`subcategoryIds: ${subcategoryId}`);
+            console.log(`Type of subcategoryId: ${typeof subcategoryId}`);
+            subcategoryId.forEach((subcategoryId) => __awaiter(this, void 0, void 0, function* () {
                 const subCategory = yield subCategory_model_1.default.findById(subcategoryId);
                 if (!subCategory) {
                     return response.status(404).json({
@@ -55,8 +62,7 @@ function createProducts(request, response) {
                 inStock,
                 ratings,
                 productName,
-                numberOfReviews,
-                subcategoryIds,
+                subcategoryIds: subcategoryId,
             };
             const createdProduct = yield products_model_1.default.create(newProduct);
             response.status(201).json({

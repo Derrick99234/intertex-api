@@ -8,7 +8,7 @@ const CategorySchema: Schema = new Schema(
     name: { type: String, required: true },
     description: { type: String, required: true },
     categorySlug: { type: String, required: true },
-    status: { type: Number, required: true },
+    status: { type: Boolean, required: true },
     mainCategoryId: {
       type: mongoose.Types.ObjectId,
       ref: "MainCategory",

@@ -5,9 +5,9 @@ export async function createCategory(
   request: Request,
   response: Response
 ): Promise<any> {
-  const { name, description, imageUrl, categorySlug, status, mainCategoryId } =
+  const { name, description, categorySlug, status, mainCategoryId } =
     request.body;
-
+  const imageUrl = (request.files as any)["imageUrl"][0].location;
   if (!name)
     return response.status(200).json({
       error: true,

@@ -4,12 +4,11 @@ import Category from "../models/category.model";
 
 // Create SubCategories
 const createSubCategory = async (req: Request, res: Response): Promise<any> => {
-  const { name, description, imageUrl, status, categoryId, categorySlug } =
-    req.body;
+  const { name, description, status, categoryId, categorySlug } = req.body;
 
   try {
     const category = await Category.findOne({ _id: categoryId });
-
+    const imageUrl = (req.files as any)["imageUrl"][0].location;
     if (!category)
       return res.status(404).json({
         error: true,

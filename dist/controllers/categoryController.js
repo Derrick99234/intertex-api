@@ -21,7 +21,8 @@ exports.deleteCategory = deleteCategory;
 const category_model_1 = __importDefault(require("../models/category.model"));
 function createCategory(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { name, description, imageUrl, categorySlug, status, mainCategoryId } = request.body;
+        const { name, description, categorySlug, status, mainCategoryId } = request.body;
+        const imageUrl = request.files["imageUrl"][0].location;
         if (!name)
             return response.status(200).json({
                 error: true,
@@ -113,8 +114,8 @@ function fetchCategoryByMainCategoryId(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         const { mainCategoryId } = request.params;
         try {
-            const category = yield category_model_1.default.find({ mainCategoryId });
-            if (!category) {
+            const categories = yield category_model_1.default.find({ mainCategoryId });
+            if (!categories) {
                 return response.status(404).json({
                     error: true,
                     message: "Category not found",
@@ -122,7 +123,7 @@ function fetchCategoryByMainCategoryId(request, response) {
             }
             response.status(200).json({
                 error: false,
-                category,
+                categories,
             });
         }
         catch (err) {

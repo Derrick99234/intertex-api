@@ -46,14 +46,22 @@ exports.getMainCategoryById = getMainCategoryById;
 // Create a new main category
 const createMainCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const newCategory = new mainCategory_model_1.default(req.body);
+        const imageUrl = req.files["imageUrl"][0].location;
+        const { name, description, status, mainCategorySlug } = req.body;
+        const newCategory = new mainCategory_model_1.default({
+            name,
+            description,
+            status,
+            imageUrl,
+            mainCategorySlug,
+        });
         const savedCategory = yield newCategory.save();
         return res.status(201).json(savedCategory);
     }
     catch (error) {
         return res
             .status(500)
-            .json({ message: "Error creating main category", error });
+            .json({ message: "Error updating main category", error });
     }
 });
 exports.createMainCategory = createMainCategory;

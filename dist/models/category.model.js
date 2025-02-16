@@ -38,7 +38,7 @@ const CategorySchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     categorySlug: { type: String, required: true },
-    status: { type: Number, required: true },
+    status: { type: Boolean, required: true },
     mainCategoryId: {
         type: mongoose_1.default.Types.ObjectId,
         ref: "MainCategory",

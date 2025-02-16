@@ -10,6 +10,7 @@ const productRoute_1 = __importDefault(require("./routes/productRoute"));
 const categoryRoute_1 = __importDefault(require("./routes/categoryRoute"));
 const mainCategoryRoute_1 = __importDefault(require("./routes/mainCategoryRoute"));
 const subCategotyRoute_1 = __importDefault(require("./routes/subCategotyRoute"));
+const paystackRoute_1 = __importDefault(require("./routes/paystackRoute"));
 const db_1 = __importDefault(require("./db"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const app = (0, express_1.default)();
@@ -28,6 +29,7 @@ app.use("/api/products", productRoute_1.default);
 app.use("/api/subcategory", subCategotyRoute_1.default);
 app.use("/api/category", categoryRoute_1.default);
 app.use("/api/main-category", mainCategoryRoute_1.default);
+app.use("/api/payments", paystackRoute_1.default);
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

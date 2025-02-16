@@ -17,9 +17,10 @@ const subCategory_model_1 = __importDefault(require("../models/subCategory.model
 const category_model_1 = __importDefault(require("../models/category.model"));
 // Create SubCategories
 const createSubCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, description, imageUrl, status, categoryId, categorySlug } = req.body;
+    const { name, description, status, categoryId, categorySlug } = req.body;
     try {
         const category = yield category_model_1.default.findOne({ _id: categoryId });
+        const imageUrl = req.files["imageUrl"][0].location;
         if (!category)
             return res.status(404).json({
                 error: true,

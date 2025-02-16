@@ -4,11 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const verifyJWT_1 = require("../middlewares/verifyJWT");
 const mainCategoryController_1 = require("../controllers/mainCategoryController");
+const aws_1 = __importDefault(require("../config/aws"));
 const router = express_1.default.Router();
 // Login route
-router.post("/create-main-category", verifyJWT_1.authenticateToken, mainCategoryController_1.createMainCategory);
+router.post("/create-main-category", aws_1.default.fields([
+    { name: "imageUrl", maxCount: 1 }, // Single file
+]), mainCategoryController_1.createMainCategory);
 router.get("/get-main-category/:id", mainCategoryController_1.getMainCategoryById);
 router.get("/get-all-main-categories", mainCategoryController_1.getMainCategories);
 router.put("/update-main-category/:id", mainCategoryController_1.updateMainCategory);

@@ -5,6 +5,7 @@ import productRoute from "./routes/productRoute";
 import categoryRoute from "./routes/categoryRoute";
 import mainCategoryRoute from "./routes/mainCategoryRoute";
 import subCategotyRoute from "./routes/subCategotyRoute";
+import paystackRouter from "./routes/paystackRoute";
 import connectDB from "./db";
 import dotenv from "dotenv";
 
@@ -27,6 +28,7 @@ app.use("/api/products", productRoute);
 app.use("/api/subcategory", subCategotyRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/main-category", mainCategoryRoute);
+app.use("/api/payments", paystackRouter);
 
 // Start the server
 app.listen(PORT, () => {

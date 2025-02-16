@@ -8,10 +8,17 @@ import {
   updateCategory,
 } from "../controllers/categoryController";
 import { authenticateToken } from "../middlewares/verifyJWT";
+import upload from "../config/aws";
 
 const router = Router();
 
-router.post("/create-category", authenticateToken, createCategory);
+router.post(
+  "/create-category",
+  upload.fields([
+    { name: "imageUrl", maxCount: 1 }, // Single file
+  ]),
+  createCategory
+);
 router.get("/get-category/:id", getCategory);
 router.get("/get-all-categories", getAllCategories);
 router.get(

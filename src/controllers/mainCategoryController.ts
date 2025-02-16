@@ -40,13 +40,21 @@ export const createMainCategory = async (
   res: Response
 ): Promise<any> => {
   try {
-    const newCategory = new MainCategory(req.body);
+    const imageUrl = (req.files as any)["imageUrl"][0].location;
+    const { name, description, status, mainCategorySlug } = req.body;
+    const newCategory = new MainCategory({
+      name,
+      description,
+      status,
+      imageUrl,
+      mainCategorySlug,
+    });
     const savedCategory = await newCategory.save();
     return res.status(201).json(savedCategory);
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "Error creating main category", error });
+      .json({ message: "Error updating main category", error });
   }
 };
 

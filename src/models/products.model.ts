@@ -7,10 +7,10 @@ const ProductSchema: Schema = new Schema(
   {
     productName: { type: String, required: true },
     salesPrice: { type: Number, required: true },
-    price: { type: String, required: true },
+    price: { type: Number, required: true },
     inStock: { type: Number, required: true },
     ratings: { type: Number, required: true },
-    numberOfReviews: { type: Number, required: true },
+    numberOfReviews: { type: Number },
     imageUrl: { type: String, required: true },
     otherImages: { type: Array },
     subcategoryIds: [

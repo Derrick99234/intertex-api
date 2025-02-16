@@ -8,28 +8,27 @@ export async function createProducts(
 ): Promise<any> {
   const {
     description,
-    imageUrl,
-    otherImages,
     price,
     salesPrice,
     inStock,
     ratings,
     productName,
-    numberOfReviews,
     subcategoryIds,
   } = request.body;
 
   try {
+    if (!request.files || !("productImage" in request.files)) {
+      return response.status(400).json({
+        message: "Product image and other images are required",
+      });
+    }
     if (
       !description ||
       !price ||
       !productName ||
       !inStock ||
-      !imageUrl ||
-      !otherImages ||
       !salesPrice ||
       !ratings ||
-      !numberOfReviews ||
       !subcategoryIds
     ) {
       return response.status(400).json({
@@ -37,7 +36,16 @@ export async function createProducts(
       });
     }
 
-    subcategoryIds.forEach(async (subcategoryId: string) => {
+    const imageUrl = (request.files as any)["productImage"][0].location;
+    const otherImages = (request.files as any)["otherImages"].map(
+      (file: any) => file.location
+    );
+
+    const subcategoryId = JSON.parse(subcategoryIds);
+    console.log(`subcategoryIds: ${subcategoryId}`);
+    console.log(`Type of subcategoryId: ${typeof subcategoryId}`);
+
+    subcategoryId.forEach(async (subcategoryId: string) => {
       const subCategory = await SubCategory.findById(subcategoryId);
 
       if (!subCategory) {
@@ -59,8 +67,7 @@ export async function createProducts(
       inStock,
       ratings,
       productName,
-      numberOfReviews,
-      subcategoryIds,
+      subcategoryIds: subcategoryId,
     };
 
     const createdProduct = await Product.create(newProduct);

@@ -10,12 +10,19 @@ import {
 } from "../controllers/subCategoryController";
 
 import { authenticateToken } from "../middlewares/verifyJWT";
+import upload from "../config/aws";
 
-router.post("/create_subcategory", authenticateToken, createSubCategory);
-router.get("/get_all_subcategory", getAllSubCategory);
+router.post(
+  "/create_subcategory",
+  upload.fields([
+    { name: "imageUrl", maxCount: 1 }, // Single file
+  ]),
+  createSubCategory
+);
+router.get("/get_all_subcategories", getAllSubCategory);
 router.get("/get_subcategory/:subCategoryId", getSubCategory);
 router.get(
-  "/get_subcategory-by-category-id/:categoryId",
+  "/get_subcategory_by_category_id/:categoryId",
   getAllSubCategoryByCategoryId
 );
 router.put(

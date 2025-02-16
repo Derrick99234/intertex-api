@@ -5,9 +5,9 @@ export async function createCategory(
   request: Request,
   response: Response
 ): Promise<any> {
-  const { name, description, imageUrl, categorySlug, status, mainCategoryId } =
+  const { name, description, categorySlug, status, mainCategoryId } =
     request.body;
-
+  const imageUrl = (request.files as any)["imageUrl"][0].location;
   if (!name)
     return response.status(200).json({
       error: true,
@@ -111,9 +111,9 @@ export async function fetchCategoryByMainCategoryId(
 ): Promise<any> {
   const { mainCategoryId } = request.params;
   try {
-    const category = await Category.find({ mainCategoryId });
+    const categories = await Category.find({ mainCategoryId });
 
-    if (!category) {
+    if (!categories) {
       return response.status(404).json({
         error: true,
         message: "Category not found",
@@ -122,7 +122,7 @@ export async function fetchCategoryByMainCategoryId(
 
     response.status(200).json({
       error: false,
-      category,
+      categories,
     });
   } catch (err) {
     return response.status(500).json({

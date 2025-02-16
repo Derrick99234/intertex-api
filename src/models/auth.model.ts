@@ -9,13 +9,23 @@ const UserSchema: Schema = new Schema(
     email: { type: String, require: true, unique: true },
     firstName: { type: String, require: true },
     is_super_admin: { type: Boolean, require: true },
-    avatar_urls: { type: String },
+    avatar_urls: {
+      type: String,
+      default:
+        "https://cdn.vectorstock.com/i/1000v/92/16/default-profile-picture-avatar-user-icon-vector-46389216.jpg",
+    },
     lastName: { type: String, require: true },
   },
   {
     timestamps: true,
   }
 );
+
+UserSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
 
 const User = mongoose.model<IUserModel>("User", UserSchema);
 export default User;

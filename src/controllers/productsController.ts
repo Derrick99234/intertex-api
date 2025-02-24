@@ -39,14 +39,14 @@ export async function createProducts(
     }
 
     const imageUrl = (request.files as any)["productImage"][0].location;
-    const otherImages = (request.files as any)["otherImages"].map(
-      (file: any) => file.location
-    );
+    let otherImages: string[] = [];
+    if (otherImages) {
+      otherImages = (request.files as any)["otherImages"].map(
+        (file: any) => file.location
+      );
+    }
 
     const subcategoryId = JSON.parse(subcategoryIds);
-    console.log(`subcategoryIds: ${subcategoryId}`);
-    console.log(`Type of subcategoryId: ${typeof subcategoryId}`);
-
     subcategoryId.forEach(async (subcategoryId: string) => {
       const subCategory = await SubCategory.findById(subcategoryId);
 

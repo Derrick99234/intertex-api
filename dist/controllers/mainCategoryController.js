@@ -17,7 +17,7 @@ const mainCategory_model_1 = __importDefault(require("../models/mainCategory.mod
 // Get all main categories
 const getMainCategories = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const categories = yield mainCategory_model_1.default.find().sort({ createdAt: -1 });
+        const categories = yield mainCategory_model_1.default.find();
         return res.status(200).json(categories);
     }
     catch (error) {

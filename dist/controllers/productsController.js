@@ -21,7 +21,7 @@ const products_model_1 = __importDefault(require("../models/products.model"));
 const subCategory_model_1 = __importDefault(require("../models/subCategory.model"));
 function createProducts(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { description, price, salesPrice, inStock, ratings, productName, subcategoryIds, } = request.body;
+        const { description, price, salesPrice, inStock, ratings, productName, selectedOptions, subcategoryIds, } = request.body;
         try {
             if (!request.files || !("productImage" in request.files)) {
                 return response.status(400).json({
@@ -34,6 +34,7 @@ function createProducts(request, response) {
                 !inStock ||
                 !salesPrice ||
                 !ratings ||
+                !selectedOptions ||
                 !subcategoryIds) {
                 return response.status(400).json({
                     message: "Missing required fields",
@@ -63,6 +64,7 @@ function createProducts(request, response) {
                 ratings,
                 productName,
                 subcategoryIds: subcategoryId,
+                sizes: selectedOptions,
             };
             const createdProduct = yield products_model_1.default.create(newProduct);
             response.status(201).json({

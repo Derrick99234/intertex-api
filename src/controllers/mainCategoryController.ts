@@ -7,7 +7,7 @@ export const getMainCategories = async (
   res: Response
 ): Promise<any> => {
   try {
-    const categories = await MainCategory.find().sort({ createdAt: -1 });
+    const categories = await MainCategory.find();
     return res.status(200).json(categories);
   } catch (error) {
     return res

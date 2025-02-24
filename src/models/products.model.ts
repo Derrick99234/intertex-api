@@ -6,6 +6,7 @@ export interface IProductModel extends IProduct, Document {}
 const ProductSchema: Schema = new Schema(
   {
     productName: { type: String, required: true },
+    description: { type: String, required: true },
     salesPrice: { type: Number, required: true },
     price: { type: Number, required: true },
     inStock: { type: Number, required: true },
@@ -13,6 +14,7 @@ const ProductSchema: Schema = new Schema(
     numberOfReviews: { type: Number },
     imageUrl: { type: String, required: true },
     otherImages: { type: Array },
+    sizes: { type: Array, required: true },
     subcategoryIds: [
       {
         type: mongoose.Types.ObjectId,

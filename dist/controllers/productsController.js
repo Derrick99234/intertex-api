@@ -41,10 +41,11 @@ function createProducts(request, response) {
                 });
             }
             const imageUrl = request.files["productImage"][0].location;
-            const otherImages = request.files["otherImages"].map((file) => file.location);
+            let otherImages = [];
+            if (otherImages) {
+                otherImages = request.files["otherImages"].map((file) => file.location);
+            }
             const subcategoryId = JSON.parse(subcategoryIds);
-            console.log(`subcategoryIds: ${subcategoryId}`);
-            console.log(`Type of subcategoryId: ${typeof subcategoryId}`);
             subcategoryId.forEach((subcategoryId) => __awaiter(this, void 0, void 0, function* () {
                 const subCategory = yield subCategory_model_1.default.findById(subcategoryId);
                 if (!subCategory) {

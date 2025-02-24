@@ -39,12 +39,9 @@ export async function createProducts(
     }
 
     const imageUrl = (request.files as any)["productImage"][0].location;
-    let otherImages: string[] = [];
-    if (otherImages) {
-      otherImages = (request.files as any)["otherImages"].map(
-        (file: any) => file.location
-      );
-    }
+    const otherImages = (request.files as any)["otherImages"]?.map(
+      (file: any) => file.location
+    );
 
     const subcategoryId = JSON.parse(subcategoryIds);
     subcategoryId.forEach(async (subcategoryId: string) => {

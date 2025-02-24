@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const ProductSchema = new mongoose_1.Schema({
     productName: { type: String, required: true },
+    description: { type: String, required: true },
     salesPrice: { type: Number, required: true },
     price: { type: Number, required: true },
     inStock: { type: Number, required: true },
@@ -43,6 +44,7 @@ const ProductSchema = new mongoose_1.Schema({
     numberOfReviews: { type: Number },
     imageUrl: { type: String, required: true },
     otherImages: { type: Array },
+    sizes: { type: Array, required: true },
     subcategoryIds: [
         {
             type: mongoose_1.default.Types.ObjectId,

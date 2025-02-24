@@ -21,6 +21,7 @@ const products_model_1 = __importDefault(require("../models/products.model"));
 const subCategory_model_1 = __importDefault(require("../models/subCategory.model"));
 function createProducts(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
+        var _a;
         const { description, price, salesPrice, inStock, ratings, productName, selectedOptions, subcategoryIds, } = request.body;
         try {
             if (!request.files || !("productImage" in request.files)) {
@@ -41,10 +42,7 @@ function createProducts(request, response) {
                 });
             }
             const imageUrl = request.files["productImage"][0].location;
-            let otherImages = [];
-            if (otherImages) {
-                otherImages = request.files["otherImages"].map((file) => file.location);
-            }
+            const otherImages = (_a = request.files["otherImages"]) === null || _a === void 0 ? void 0 : _a.map((file) => file.location);
             const subcategoryId = JSON.parse(subcategoryIds);
             subcategoryId.forEach((subcategoryId) => __awaiter(this, void 0, void 0, function* () {
                 const subCategory = yield subCategory_model_1.default.findById(subcategoryId);

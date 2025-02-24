@@ -13,6 +13,7 @@ export async function createProducts(
     inStock,
     ratings,
     productName,
+    selectedOptions,
     subcategoryIds,
   } = request.body;
 
@@ -29,6 +30,7 @@ export async function createProducts(
       !inStock ||
       !salesPrice ||
       !ratings ||
+      !selectedOptions ||
       !subcategoryIds
     ) {
       return response.status(400).json({
@@ -68,6 +70,7 @@ export async function createProducts(
       ratings,
       productName,
       subcategoryIds: subcategoryId,
+      sizes: selectedOptions,
     };
 
     const createdProduct = await Product.create(newProduct);
